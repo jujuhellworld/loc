@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocation Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        #coordinates {
+            margin-top: 20px;
+            font-size: 100px;
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fetching Your Location...</h1>
+    <p>Please allow access to your location to see your coordinates.</p>
+    <div id="coordinates"></div> <!-- Placeholder for coordinates -->
+
+    <script>
+        // Automatically run geolocation code on page load
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude;
+                    const long = position.coords.longitude;
+
+                    // Display coordinates on the screen
+                    const coordinatesElement = document.getElementById("coordinates");
+                    coordinatesElement.textContent = `Latitude: ${lat}, Longitude: ${long}`;
+                },
+                (error) => {
+                    console.error("Error getting location:", error);
+                    const coordinatesElement = document.getElementById("coordinates");
+                    coordinatesElement.textContent = "Unable to retrieve your location. Please ensure you have granted permission.";
+                }
+            );
+        } else {
+            const coordinatesElement = document.getElementById("coordinates");
+            coordinatesElement.textContent = "Geolocation is not supported by this browser.";
+        }
+    </script>
+</body>
+</html>
